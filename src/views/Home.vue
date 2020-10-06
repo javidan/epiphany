@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Questionarie v-bind:questionarie="questinaries[$attrs.id || 0]" />
+    <Questionarie v-bind:key="$attrs.id" v-bind:questionarie="questinaries[$attrs.id || 0]" />
   </div>
 </template>
 

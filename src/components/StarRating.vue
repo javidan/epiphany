@@ -55,6 +55,9 @@ export default {
   direction: rtl;
   text-align: center;
   font-size: 40px;
+  
+
+
   color: white;
 }
 .rating > span {
@@ -63,6 +66,9 @@ export default {
   width: 1.1em;
   cursor: pointer;
   margin-right: 15px;
+  @media only screen and (max-width: 600px) {
+    margin-right: 5px;
+  }
 }
 .rating > span:hover,
 .rating > span:hover ~ span {
