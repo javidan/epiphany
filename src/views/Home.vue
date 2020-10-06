@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Questionarie v-bind:questionarie="questinaries[0]" />
+    <Questionarie v-bind:questionarie="questinaries[$attrs.id || 0]" />
   </div>
 </template>
 
@@ -37,7 +37,85 @@ export default {
             image: require('@/assets/img_statement_3.png')
           }
         ],
+        type:"simple",
+        choices: [
+          {
+            id: 1,
+            title: 'hiss',
+            image: require('@/assets/img_cat_supersad.png')
+          },
+          {
+            id: 2,
+            title: 'meow',
+            image: require('@/assets/img_cat_neutral.png')
+          },
+          {
+            id: 3,
+            title: 'frr',
+            image: require('@/assets/img_cat_happy.png')
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: 'How you feel about this quote',
+        questions: [
+          {
+            id: 1,
+            title: 'thats no moon, thats space station...',
+            image: require('@/assets/img_statement_1.png')
+          },
+          {
+            id: 2,
+            title: 'Use the force luke...',
+            image: require('@/assets/img_statement_2.png')
+          },
+          {
+            id: 3,
+            title: 'may force be with you...',
+            image: require('@/assets/img_statement_3.png')
+          }
+        ],
         type:"multiple",
+        choices: [
+          {
+            id: 1,
+            title: 'hiss',
+            image: require('@/assets/img_cat_supersad.png')
+          },
+          {
+            id: 2,
+            title: 'meow',
+            image: require('@/assets/img_cat_neutral.png')
+          },
+          {
+            id: 3,
+            title: 'frr',
+            image: require('@/assets/img_cat_happy.png')
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: 'How you feel about this quote',
+        questions: [
+          {
+            id: 1,
+            title: 'thats no moon, thats space station...',
+            image: require('@/assets/img_statement_1.png')
+          },
+          {
+            id: 2,
+            title: 'Use the force luke...',
+            image: require('@/assets/img_statement_2.png')
+          },
+          {
+            id: 3,
+            title: 'may force be with you...',
+            image: require('@/assets/img_statement_3.png')
+          }
+        ],
+        type:"star",
         choices: [
           {
             id: 1,

@@ -1,11 +1,19 @@
 <template>
   <div>
-    <div v-bind:style="{ backgroundImage: `url(${getCurrentQuestion.image})` }" class="question" />
+    <carousel :per-page="1" :paginationEnabled="false" :navigate-to="this.currentQuestion" :mouse-drag="false">
+      <slide v-for="question in questions" v-bind:key="question.id">
+        <div class="img-container">
+          <div v-bind:style="{ backgroundImage: `url(${question.image})` }" class="question" />
+        </div>
+      </slide>
+    </carousel>
   </div>
 </template>
 
 
 <script>
+import { Carousel, Slide } from 'vue-carousel';
+
 export default {
   name: "Questions",
   computed: {
@@ -15,6 +23,10 @@ export default {
   },
   data: () => ({
   }),
+  components:{
+    Carousel,
+    Slide
+  },
   props: {
     questions: {
       type: Array,
@@ -29,6 +41,9 @@ export default {
 
 
 <style lang="scss" scoped>
+  .img-container{
+    padding: 10px 20px
+  }
   .question{
     box-sizing: border-box;
     height: 200px;

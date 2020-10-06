@@ -10,7 +10,21 @@
       <h2 class="title">Your Answers</h2>
       <div v-for="result in results" :key="result.id">
         <div class="question"> {{ result.question}}</div>
-        <div class="answer">{{result.answer}}</div>
+        <div class="answer">
+          <div v-if="isChoice()">
+            {{result.answer}}  
+          </div>
+
+          <div v-if="!isChoice()">
+            <div v-if="result.answer == -1">
+              Not Answered
+            </div>
+            <div v-if="result.answer != -1">
+              <span class="star selected" v-bind:key="n" v-for="n in result.answer">☆</span>
+              <span class="star" v-bind:key="n+5" v-for="n in 5-result.answer">☆</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -19,19 +33,32 @@
 
 <script>
 export default {
-  props: ["questions", "choices", "userChoices"],
+  name: "Result",
+  props: ["questions", "choices", "userChoices", "type"],
+  methods: {
+    isChoice(){
+      return this.type != "star"
+    },
+    choiceAnswers(question){
+      return this.choices.filter((choice) => this.userChoices[question.id] && this.userChoices[question.id].includes(choice.id))
+                    .map((choice)=>choice.title).join(", ") || "Not Answered"
+    },
+    starAnswers(question){
+      const choice = this.userChoices[question.id]
+      return choice ? choice[0] : -1
+    }
+  },
   computed: {
+
+   
     results(){
-      console.log(this.questions, this.choices, this.userChoices)
       
       const result = this.questions.map((question)=>({
         question: question.title,
         id: question.id,
-        answer: this.choices.filter((choice) => this.userChoices[question.id].includes(choice.id))
-                    .map((choice)=>choice.title).join(", ") || "Not Answered"
+        type: this.type,
+        answer: this.isChoice() ? this.choiceAnswers(question) : this.starAnswers(question)
       }))
-
-      console.log(result)
 
       return result
     }
@@ -74,6 +101,7 @@ export default {
   background: white;
   margin-bottom: 4px;
   padding: 2px 4px;
+  text-overflow: ellipsis;
 }
 
 .answer{
@@ -83,6 +111,16 @@ export default {
   margin-bottom: 8px;
   padding: 2px 10px;
   color: white
+}
+
+.star{
+  display: inline-block;
+  margin-right: 3px;
+  color: #d3809b;
+
+  &.selected{
+   color: gold;
+  }
 }
 
 </style>

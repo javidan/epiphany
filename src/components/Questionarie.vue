@@ -7,12 +7,18 @@
         <Result v-bind:questions="questionarie.questions" 
                 v-bind:choices="questionarie.choices" 
                 v-bind:userChoices="choices"
+                v-bind:type="questionarie.type"
         />
       </div>
 
       <div class="question-block" v-if="!showResult">
         <Questions v-bind:questions="questionarie.questions" v-bind:currentQuestion="currentQuestionIndex()"/>
-        <Choices v-bind:madeChoices="madeChoices" 
+        <Choices v-if="!isStar()" v-bind:madeChoices="madeChoices" 
+                 v-bind:choices="questionarie.choices" 
+                 v-on:choice-made="choiceMade"
+                 v-bind:type="questionarie.type"
+        />
+        <StarRating v-if="isStar()" v-bind:madeChoices="madeChoices" 
                  v-bind:choices="questionarie.choices" 
                  v-on:choice-made="choiceMade"
                  v-bind:type="questionarie.type"
@@ -29,6 +35,7 @@ import Questions from '@/components/Questions'
 import Choices from '@/components/Choices'
 import Result from '@/components/Result'
 import Next from '@/components/Next'
+import StarRating from '@/components/StarRating'
 
 export default {
   name: 'Questionarie',
@@ -36,7 +43,8 @@ export default {
     Questions,
     Choices,
     Result,
-    Next
+    Next,
+    StarRating
   },
   props: ['questionarie'],
   methods: {
@@ -47,6 +55,9 @@ export default {
         this.currentQuestion = 0
         this.showResult = true
       }
+    },
+    isStar(){
+      return this.questionarie.type === "star"
     },
     currentQuestionId(){
       return this.questionarie.questions[this.currentQuestion].id
@@ -87,11 +98,20 @@ export default {
     background-size: cover;
     justify-content: center;
     align-items: center;
+    @media only screen and (max-width: 600px) {
+     flex-direction: column;
+     align-items: stretch !important;
+    }
   }
 
   .questionarie{
-    // min-width: 400px;
     flex-basis: 40%;
+    max-width: 500px;
+    flex: 1;
+    @media only screen and (max-width: 600px) {
+     flex-basis: unset;
+     max-width: none;
+    }
   }
 
   .title{

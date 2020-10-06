@@ -1,8 +1,9 @@
 <template>
   <div class="app">
     <div class="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/0">Questionarie Choice</router-link> |
+      <router-link to="/1">Questionarie Multiple Choice</router-link> |
+      <router-link to="/2">Questionarie Star</router-link>
     </div>
     <div class="content">
       <router-view />
@@ -24,11 +25,14 @@ html, body{
   font-family: "Open Sans", "sans-serif";
 }
 
+body{
+  min-width: 300px;
+}
+
 .app{
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  background: blue;
   min-height: 100%;
 
 }
@@ -46,7 +50,7 @@ html, body{
 .content{
   flex: 1;
   display: flex;
-  background: green;
+  background: #1E1E1E;
 }
 
 </style>
